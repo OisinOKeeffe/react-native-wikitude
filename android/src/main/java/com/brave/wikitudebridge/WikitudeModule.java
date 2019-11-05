@@ -21,6 +21,7 @@ import com.facebook.react.bridge.WritableMap;
 
 import java.io.File;
 import java.util.Arrays;
+import android.util.Log;
 
 public class WikitudeModule extends ReactContextBaseJavaModule implements ActivityEventListener {
   private ReactContext mReactContext;
