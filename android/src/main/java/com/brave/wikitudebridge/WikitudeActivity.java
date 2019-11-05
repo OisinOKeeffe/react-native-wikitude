@@ -26,6 +26,10 @@ import com.wikitude.architect.services.camera.CameraLifecycleListener;
 import com.wikitude.common.camera.CameraSettings;
 import com.wikitude.common.permission.PermissionManager;
 
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -235,6 +239,15 @@ public class WikitudeActivity extends Activity {
                 //Allows the app to react to JSON actions sent through the Wikitude Architect World.
 
                 try {
+                    WritableMap payload = Arguments.createMap();
+                    // Put data to map
+                    payload.putString("log", jsonObject.toString(4));
+                                        Log.e(TAG, jsonObject.toString(4));
+                                        Log.e(TAG, jsonObject.getString("id"));
+                                        Intent resultIntent = new Intent();
+                    resultIntent.putExtra(WIKITUDE_RESULT, jsonObject.getString("id"));
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
                     /*
                     switch (jsonObject.getString("action")) {
 

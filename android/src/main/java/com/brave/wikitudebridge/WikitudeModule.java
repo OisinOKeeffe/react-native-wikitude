@@ -15,13 +15,34 @@ import com.facebook.react.bridge.ReactMethod;
 import com.wikitude.architect.ArchitectView;
 import com.wikitude.common.permission.PermissionManager;
 
+import com.facebook.react.bridge.ActivityEventListener;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.facebook.react.bridge.WritableMap;
+
 import java.io.File;
 import java.util.Arrays;
 
-public class WikitudeModule extends ReactContextBaseJavaModule {
+public class WikitudeModule extends ReactContextBaseJavaModule implements ActivityEventListener {
+  private ReactContext mReactContext;
+  protected static final String TAG = "WikitudeModule";
+  private static final int PICK_IMAGE = 1;
 
   public WikitudeModule(ReactApplicationContext reactContext) {
     super(reactContext);
+    mReactContext = reactContext;
+    reactContext.addActivityEventListener(this);
+  }
+
+  @Override
+  public void onActivityResult(Activity activity, final int requestCode, final int resultCode, final Intent intent) {
+    Log.i(TAG, "Override-onActivityResult "+ intent.getStringExtra(WikitudeActivity.WIKITUDE_RESULT) + "");
+
+      mReactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("WikitudeResult", intent.getStringExtra(WikitudeActivity.WIKITUDE_RESULT));
+  }
+
+  @Override
+  public void onNewIntent(Intent intent) {
+
   }
 
   @Override
@@ -48,7 +69,7 @@ public class WikitudeModule extends ReactContextBaseJavaModule {
     intent.putExtra(WikitudeActivity.EXTRAS_KEY_SDK_KEY, wikitudeSDKKey);
 
 	  //launch activity
-	  currentActivity.startActivity(intent);
+	  currentActivity.startActivityForResult(intent, PICK_IMAGE);
   }
 
 }

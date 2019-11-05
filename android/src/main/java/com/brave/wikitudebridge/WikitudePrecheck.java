@@ -106,11 +106,14 @@ public class WikitudePrecheck extends Activity {
 	{
 		super.onActivityResult(aRequestCode, aResultCode, aData);
 
-		Log.i(TAG, "Got activity result code "+Integer.toString(aResultCode) + "");
+		Log.i(TAG, "Got activity result code "+ aData.getStringExtra(WikitudeActivity.WIKITUDE_RESULT) + "");
 
 		if (aRequestCode == 0xe110)
 		{
 			Log.i(TAG, "Exiting.");
+			Intent output = new Intent();
+			output.putExtra(WikitudeActivity.WIKITUDE_RESULT, aData.getStringExtra(WikitudeActivity.WIKITUDE_RESULT));
+			setResult(Activity.RESULT_OK, output);
 			this.finish();
 		}
 
