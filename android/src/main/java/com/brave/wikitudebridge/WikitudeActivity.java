@@ -47,6 +47,7 @@ public class WikitudeActivity extends Activity {
 
     public static final int CULLING_DISTANCE_DEFAULT_METERS = 50 * 1000;
 
+    public static final String WIKITUDE_RESULT = "0";
 
     protected static final String TAG = "WikitudeActivity";
     protected String wikitudeSDKKey = "";
