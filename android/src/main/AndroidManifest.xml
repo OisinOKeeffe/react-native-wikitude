@@ -36,7 +36,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <application android:resizeableActivity="false">
+    <application android:resizeableActivity="false" android:usesCleartextTraffic="true">
         <activity android:name=".WikitudeActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:keepScreenOn="true" android:parentActivityName=".WikitudePrecheck"/>
         <activity android:name=".WikitudePrecheck" android:configChanges="orientation|keyboardHidden|screenSize" android:keepScreenOn="true"/>
     </application>
