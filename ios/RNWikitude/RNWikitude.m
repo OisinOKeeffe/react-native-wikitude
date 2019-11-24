@@ -8,14 +8,8 @@
 
 #import "RNWikitude.h"
 // import RCTLog
-#if __has_include(<React/RCTLog.h>)
-#import <React/RCTLog.h>
-#elif __has_include("RCTLog.h")
-#import "RCTLog.h"
-#else
-#import "React/RCTLog.h"   // Required when used as a Pod in a Swift project
-#endif
 
+#import <React/RCTLog.h>
 
 #define ERROR_PICKER_CANNOT_RUN_CAMERA_ON_SIMULATOR_KEY @"E_PICKER_CANNOT_RUN_CAMERA_ON_SIMULATOR"
 #define ERROR_PICKER_CANNOT_RUN_CAMERA_ON_SIMULATOR_MSG @"Cannot run camera on simulator"
