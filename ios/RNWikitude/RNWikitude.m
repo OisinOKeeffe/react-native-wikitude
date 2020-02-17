@@ -27,6 +27,15 @@
 }
 RCT_EXPORT_MODULE()
 
+- (NSArray<NSString *> *)supportedEvents
+{
+  return @[@"WikitudeResult"];
+}
+
+- (void)sendWikitudeResult:(NSString *)notification
+{
+  [self sendEventWithName:@"WikitudeResult" body:notification];
+}
 
 - (instancetype)init
 {
@@ -84,6 +93,7 @@ RCT_EXPORT_METHOD(startAR:(NSString *)url hasGeolocation:(BOOL *)geo hasImageRec
         }
         
         ARViewController *arView = [[ARViewController alloc] init];
+        arView.delegate = self;
         arView.url = url;
         arView.sdkkey = sdkkey;
         

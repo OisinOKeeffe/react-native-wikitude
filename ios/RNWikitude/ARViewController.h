@@ -12,6 +12,7 @@
 
 @protocol ARViewControllerDelegate <NSObject>
 @required
+- (void)sendWikitudeResult:(NSString *)data;
 - (void)dataFromController:(NSString *)data;
 @end
 

@@ -62,22 +62,6 @@
         [self.view addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"|[_architectView]|" options:0 metrics:nil views:views] ];
         [self.view addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_architectView]|" options:0 metrics:nil views:views] ];
 
-//        Add the close button
-        
-        self.button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.button addTarget:self
-                   action:@selector(closeARClicked)
-         forControlEvents:UIControlEventTouchUpInside];
-        [self.button setTitle:@"Exit AR" forState:UIControlStateNormal];
-        
-        self.button.frame = CGRectMake(
-                                  0,
-                                  CGRectGetHeight(self.view.bounds) - 80.0,
-                                  CGRectGetWidth(self.view.bounds),
-                                  80.0);
-        self.button.backgroundColor = [UIColor blackColor];
-        self.button.tintColor = [UIColor whiteColor];
-        [self.view addSubview:self.button];
     }
     else {
         NSLog(@"This device is not supported. Show either an alert or use this class method even before presenting the view controller that manages the WTArchitectView. Error: %@", [deviceSupportError localizedDescription]);
@@ -183,6 +167,15 @@
 #pragma mark WTArchitectViewDelegate
 - (void)architectView:(WTArchitectView *)architectView didFinishLoadArchitectWorldNavigation:(WTNavigation *)navigation {
     /* Architect World did finish loading */
+    NSLog(@"sendJSONObject '%@' could not be loaded", navigation.originalURL);
+}
+
+#pragma mark WTArchitectViewDelegate
+- (void)architectView:(WTArchitectView *)architectView receivedJSONObject:(WTNavigation *)jsonObject {
+    /* Architect World did finish loading */
+    NSLog(@"sendJSONObject '%@' received", jsonObject);
+    [self.delegate sendWikitudeResult:jsonObject];
+    [self closeARClicked];
 }
 
 - (void)architectView:(WTArchitectView *)architectView didFailToLoadArchitectWorldNavigation:(WTNavigation *)navigation withError:(NSError *)error {
@@ -232,6 +225,16 @@
 {
     [self stopWikitudeSDKRendering];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Actions
+-(void)closeAR
+{
+    NSDictionary *close = [NSDictionary dictionaryWithObjectsAndKeys:
+        @"close", @"id",
+        nil];
+    [self.delegate sendWikitudeResult:close];
+    [self closeARClicked];
 }
 
 

@@ -36,9 +36,13 @@ public class WikitudeModule extends ReactContextBaseJavaModule implements Activi
 
   @Override
   public void onActivityResult(Activity activity, final int requestCode, final int resultCode, final Intent intent) {
-    Log.i(TAG, "Override-onActivityResult "+ intent.getStringExtra(WikitudeActivity.WIKITUDE_RESULT) + "");
 
+    if( intent != null && WikitudeActivity.WIKITUDE_RESULT != null)
+    {
+      Log.i(TAG, "Override-onActivityResult "+ intent.getStringExtra(WikitudeActivity.WIKITUDE_RESULT) + "");
       mReactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("WikitudeResult", intent.getStringExtra(WikitudeActivity.WIKITUDE_RESULT));
+    }
+     
   }
 
   @Override
